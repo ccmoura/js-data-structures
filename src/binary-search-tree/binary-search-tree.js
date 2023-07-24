@@ -71,4 +71,27 @@ class BinarySearchTree {
 
         return removeRecursively(this._root, value)
     }
+
+    search(value) {
+        const searchRecursively = (root, value) => {
+            if(value === root.value) {
+                return root
+            } else if (value < root.value) {
+                if (!root.left) {
+                    return null
+                }
+
+                return searchRecursively(root.left, value)
+            } else {
+                if (!root.right) {
+                    return null
+                }
+
+                return searchRecursively(root.right, value)
+            }
+            
+        }
+
+        return searchRecursively(this._root, value)
+    }
 }
