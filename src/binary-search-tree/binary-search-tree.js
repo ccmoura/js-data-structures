@@ -1,8 +1,6 @@
 class BinarySearchTree {
     constructor() {
         this._root = null
-        this.left = null;
-        this.right = null;
     }
 
     insert(value) {
@@ -28,5 +26,49 @@ class BinarySearchTree {
         } else {
             insertNode(this._root, node)
         }
+    }
+
+    remove(value) {
+        if(!this._root.left && !this._root.right && this._root.value === value) {
+            const removed = this._root
+            this._root = null
+            return removed
+        }
+
+        const removeRecursively = (root, value) => {
+            const findMin = (root) => {
+                while (root.left !== null) {
+                    root = root.left
+                }
+                return root
+            }
+            
+            if(root === null) {
+                return null
+            } else if (value < root.value) {
+                root.left = removeRecursively(root.left, value)
+            } else if (value > root.value) {
+                root.right = removeRecursively(root.right, value)
+            } else {
+                if(!root.left && !root.right) {
+                    return null
+                } else if (!root.left) {
+                    root = root.right
+                    return root
+                } else if (!root.right) {
+                    root = root.left
+                    return root
+                } else {
+                    const temp = findMin(root.right)
+                    root.value = temp.value
+                    root.right = removeRecursively(root.right, temp.value)
+                    return root
+                }
+            }
+            
+            return root
+        }
+
+        return removeRecursively(this._root, value)
     }
 }
