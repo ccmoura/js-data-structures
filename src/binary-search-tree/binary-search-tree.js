@@ -94,4 +94,20 @@ class BinarySearchTree {
 
         return searchRecursively(this._root, value)
     }
+
+    preOrderTraversal() {
+        const traversal = []
+
+        const preOrderTraversalHelper = (node) => {
+            if(node?.value !== null) {
+                traversal.push(node.value)
+                if(node.left) preOrderTraversalHelper(node.left)
+                if(node.right) preOrderTraversalHelper(node.right)
+            }
+        }
+
+        preOrderTraversalHelper(this._root)
+
+        return traversal
+    }
 }
