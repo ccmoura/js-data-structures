@@ -1,4 +1,4 @@
-class BinarySearchTree {
+module.exports = class BinarySearchTree {
     constructor() {
         this._root = null
     }
@@ -29,7 +29,7 @@ class BinarySearchTree {
     }
 
     remove(value) {
-        if(!this._root.left && !this._root.right && this._root.value === value) {
+        if(!this._root?.left && !this._root?.right && this._root?.value === value) {
             const removed = this._root
             this._root = null
             return removed
@@ -43,7 +43,7 @@ class BinarySearchTree {
                 return root
             }
             
-            if(root === null) {
+            if(!root || root.value === null) {
                 return null
             } else if (value < root.value) {
                 root.left = removeRecursively(root.left, value)
@@ -73,6 +73,10 @@ class BinarySearchTree {
     }
 
     search(value) {
+        if(!this._root) {
+            return null
+        }
+
         const searchRecursively = (root, value) => {
             if(value === root.value) {
                 return root
@@ -96,14 +100,17 @@ class BinarySearchTree {
     }
 
     preOrderTraversal() {
+        if(!this._root) {
+            return []
+        }
+        
         const traversal = []
 
         const preOrderTraversalHelper = (node) => {
-            if(node?.value !== null) {
-                traversal.push(node.value)
-                if(node.left) preOrderTraversalHelper(node.left)
-                if(node.right) preOrderTraversalHelper(node.right)
-            }
+            traversal.push(node.value)
+            if(node.left) preOrderTraversalHelper(node.left)
+            if(node.right) preOrderTraversalHelper(node.right)
+            
         }
 
         preOrderTraversalHelper(this._root)
