@@ -1,6 +1,6 @@
 const cache = {}
 
-const waysToCoverSteps = (step) => {
+module.exports = (step) => {
     if (step < 0) return 0
     if (step === 0) return 1
 
